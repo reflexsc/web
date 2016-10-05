@@ -1,0 +1,32 @@
+---
+layout: post
+title:  Install Guide
+date:   2016-10-02 07:56:19 -0600
+categories: overview
+---
+It requires python3, pip and virtualenv to exist on the host it is installed onto, then it loads itself into its own virtualenv.
+
+Supported in MacOS and Linux.
+
+For MacOS, get an updated python3:
+
+{% highlight bash %}
+sudo brew upgrade python3
+{% endhighlight %}
+
+And, make sure virtualenv exists:
+
+{% highlight bash %}
+sudo pip install virtualenv
+{% endhighlight %}
+
+Then install from the network (does not require super user privileges):
+
+{% highlight bash %}
+curl -sLO https://raw.github.com/reactorsc/reactor/master/.pkg/getreactor.sh &&\
+	bash ./getreactor.sh
+{% endhighlight %}
+
+## Install Reactor Core
+
+Reactor Core is the back-end database and REST api.  This is not yet GA.
