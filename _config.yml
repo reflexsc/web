@@ -20,7 +20,7 @@ subtitle: 'Secure Service and Config Management for Ephemeral Containers'
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
 # baseurl: "/" # the subpath of your site
-url: "https://reflex.solv.com/"
+url: "https://reflex.cold.org/"
 baseurl: ''
 cover: "/img/plane-photo-1433023396640-673394a1faa8-export.jpeg"
 logo: "/assets/logo.png"
