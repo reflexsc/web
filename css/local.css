@@ -28,3 +28,8 @@
 .doc-body, .post-content {
   margin-bottom: 4em;
 }
+
+.center-image {
+  margin: 0 auto;
+  display: block;
+}
