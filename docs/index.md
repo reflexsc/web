@@ -21,9 +21,17 @@ There are three principles at play with Reflex that allow it to be a powerful Se
 
 The challenge most systems face is that it is easy to manage a single service, but once we have to offer a service in general production use, we often want to chain them together.  For instance, if you want to have a Test environment followed by a QA and then Production.  This is a Pipeline.
 
-Lets use an example application Bat'leth Combat Training (BCT). 
+![batleth example](/docs/summary1.jpg){: .img-wrap-right }
 
-![batleth example](/docs/summary1.jpg){: .center-image }
+Lets use an example application **Bat'leth Combat Training (BCT)**.  For this application, you want to have to running instances.  One is **Test**, one is **Producton**.  You want to deploy changes to Test so you can verify everything is working prior to getting them into Production.
+
+![batleth example](/docs/summary2.jpg){: .img-wrap-left }
+
+This is where Pipelines come into the picture.  Pipelines group together different services, allowing for staging of changes between each.  Within Reflex Engine both are represented as objects, where the Pipeline is the top level object, and services are the pivot point, referencing the pipeline, as well as any other related objects such as Instances and Configurations.
+
+![batleth example](/docs/summary3.jpg){: .img-wrap-right }
+
+It is recommended that you follow a name convention to help understand the relationships.  In this example, `bct` is the name of the pipeline, and we have named the test service `bct-tst` and the production service `bct-prd`.
 
 # Secrets and Configurations
 

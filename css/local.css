@@ -29,7 +29,36 @@
   margin-bottom: 4em;
 }
 
-.center-image {
+.img-center {
   margin: 0 auto;
   display: block;
+}
+.img-wrap-right {
+  float: right;
+  display: block;
+  padding-left: 2em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+.img-wrap-left {
+  float: left;
+  display: block;
+  padding-right: 2em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+#content h1, #content h2, #content h3, #content h4 {
+   clear: both;
+}
+
+#content table.values {
+  background: #f5f5f5;
+  border-radius: .5em;
+  border: none;
+}
+
+/* override #service when in .doc-body */
+.doc-body #service {
+  text-align: left;
 }
