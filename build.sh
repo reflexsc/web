@@ -1,4 +1,5 @@
 #!/bin/bash
 
-git reset --head
+git clean -xdf
+git pull
 jekyll build
