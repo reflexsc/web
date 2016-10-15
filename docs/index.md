@@ -23,7 +23,7 @@ The challenge most systems face is that it is easy to manage a single service, b
 
 Lets use an example application Bat'leth Combat Training (BCT). 
 
-![batleth example](/docs/summary1.jpg)
+![batleth example](/docs/summary1.jpg){:center}
 
 # Secrets and Configurations
 
