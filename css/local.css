@@ -4,11 +4,13 @@
 }
 .doc-nav {
   position: fixed;
-  background-color: #efefef;
-  border: solid 1px #ddd;
+  margin-left: 1em;
+  width: 140pt;
+  background-color: #fff;
+  border: solid 1px #efefef;
   border-radius: .5em;
   font-size: smaller;
-  box-shadow: 2px 2px 5px #888;
+  box-shadow: 2px 2px 5px #ccc;
 }
 
 .doc-nav > .panel {
@@ -19,7 +21,7 @@
   margin-bottom: 0;
 }
 .doc-nav > .panel-default {
-  border-bottom: solid 1px #ffffff;
+  border-bottom: solid 1px #efefef;
   border-radius: 0;
 }
 

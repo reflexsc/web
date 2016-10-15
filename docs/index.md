@@ -17,6 +17,14 @@ Instead, Reflex pivots its data around Services, and the instances behind those 
 
 There are three principles at play with Reflex that allow it to be a powerful Service Management solution:  [Loose Coupling](/docs/loose-coupling/), [Live State Management](/docs/iac/#live-state-management) (for Infrastructure as Code), and [Attribute Based Access Controls](/docs/abac/#live-state-management) (ABAC).
 
+## Services and Pipelines
+
+The challenge most systems face is that it is easy to manage a single service, but once we have to offer a service in general production use, we often want to chain them together.  For instance, if you want to have a Test environment followed by a QA and then Production.  This is a Pipeline.
+
+Lets use an example application Bat'leth Combat Training (BCT). 
+
+![batleth example](/docs/summary1.jpg)
+
 # Secrets and Configurations
 
 As the world becomes more distributed with IaaS, PaaS and other "cloud" like software solutions, the security model of [Attribute Based Access Controls](/docs/abac/#live-state-management) becomes critical in maintaining a safe security posture.

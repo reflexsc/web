@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: docs
 title:  Are we building Helicopters?
 author: Brandon Gillespie
 permalink: /helicopters/
