@@ -2,4 +2,4 @@
 
 git clean -xdf
 git pull
-jekyll build
+/home/svc-user/bin/jekyll build
