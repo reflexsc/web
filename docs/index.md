@@ -47,3 +47,34 @@ Reflex gives you this capability through ABAC.  You can easily create policies t
 
 This last option is how Reflex works.  When somebody violates your cloud controller they will have your API keys, and you may not even know it.  But they do not have the additional attributes, so while your security posture is lowered, you do not have an immediate data breach.
 
+## Configuration Basics
+
+Reflex Configurations are very flexible, designed to store both configurations, as well as secrets--to be delivered at run-time.
+
+Configuration objects ultimately output configuration data, which can in turn be used by your application.  The Configuration objects are JSON documents supporting deep merging for dictionary elements, with inheritance and references to other objects, and ordered set-unions for arrays.
+
+There are three relationship types: `extends`, `imports`, and `exports`.
+
+![batleth example](/docs/summary4.jpg){: .img-wrap-right }
+
+In the shown example, the application *Batleth Combat Training* named `bct`, the `bct-tst` object extends the `bct` object, which extends the `common` object.  Object keys lower in the tree take priority over those higher when used with extends.  So an attribute defined on `bct-tst` would override one defined on `bct` or `common`.
+
+With inheritance, the exports to `bct-config` is also included in `bct-tst` and `bct-prd`, even though it is not defined on the lower objects.
+
+Imports is a way to merge another object into the current one, where it takes priority instead of the current (lower object).  Furthermore, imports does not follow any hierarchy of the imported object--it is just the single object that is merged.
+
+Exports is used to define the configurations which are output to a file (if any).  It is possible to make a configuration that does not output any data to a file, but rather it is assembled and inserted to STDIN of the running service (this is the most secure method).
+
+You can also test the flattening of your object relationships using the Launch Control command (explained later).  *It is important to note that in this example `launch config` refers to the Service name, not the Config name (this is described in the next section).*
+
+{% highlight bash %}
+launch config bct-tst  # prints merged JSON to screen
+{% endhighlight %}
+
+Or to have it write-out the configs to disk:
+
+{% highlight bash %}
+launch config bct-tst --commit
+{% endhighlight %}
+
+More details are described in the [Configuration Object](/docs/objects#config) Reference section.

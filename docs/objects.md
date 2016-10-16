@@ -104,7 +104,7 @@ The central pivot point referencing other objects.
 |Type|  value|  Description
 |----|-|-
 |name|string|name of the object
-|active-instances|array|list of active instances used by services, compiled from `static-instances` and `dynamic-instances`
+|active-instances|array|list of active instances used by services, compiled from `static-instances` and `dynamic-instances`.  Typically external services update static and dynamic, where active instances is referenced for the current list.
 |static-instances|array|list of statically set instances
 |dynamic-instances|array|list of dynamically created instances (such as from a container management plugin service)
 |lane|string|the lane in the pipeline, for the current stage
@@ -117,12 +117,138 @@ The central pivot point referencing other objects.
 Example:
 
 {% highlight json %}
-    {
-        "type": "http"
-    }
+{
+  "name": "bct-tst",
+  "active-instances":[
+    "bct-p1ap1-blue"
+  ],
+  "static-instances":[ ],
+  "dynamic-instances":[
+    "bct-p1ap1-blue"
+  ],
+  "lane":"prd",
+  "pipeline":"bct",
+  "region":"saas1",
+  "target":"bct-1610-0017",
+  "tenant":"blue",
+  "version-url":"https://{service}/api/v1/health"
+}
 {% endhighlight %}
 
 # Config
+
+The concepts behind [Secrets and Configuratins](/docs/#secrets-and-configurations) are fully described separately.  Herein are simply the object definitions.
+
+There are two types of Config object: parameter, and file.
+
+### Type=parameter
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|name|string|name of the object
+|type|string|"parameter"
+|procvars|array|A list of object references at which to perform variable substitution.  Default `["sensitive.parameters"]`
+|sensitive|object|data in this object is encrypted at rest
+|setenv|object|key-value pairs added to environment
+|exports|array|A list of object names to export
+|extends|array|A list of object names to extend
+|imports|array|A list of object names to import
+
+Example:
+{% highlight json %}
+{
+    "name": "bct-tst",
+    "type": "parameter",
+    "extends": ["bct"],
+    "procvars": ["sensitive.parameters"],
+    "sensitive": {
+        "parameters": {
+            "MONGO-HOSTS":"test-db",
+            "MONGO-DBID":"test_db",
+            "MONGO-PASSWORD":"asdf",
+            "MONGO-URI":"mongodb://%{MONGO-HOSTS}/%{MONGO-DBID}"
+        }
+    },
+    "setenv": {
+        "MONGO-URI": "%{MONGO-URI}"
+    }
+}
+
+{
+    "name": "bct",
+    "type": "parameter",
+    "extends": ["common"],
+    "imports": ["bct-config"],
+    "exports": ["bct-file"]
+}
+
+{
+    "name": "common",
+    "type": "parameter",
+    "sensitive": {
+        "parameters": {
+            "SHARED-SECRET":"moar"
+        }
+    }
+}
+
+{
+    "name": "bct-config",
+    "type": "parameter",
+    "sensitive": {
+        "parameters": {
+            "GROUP-CONFIG":"moar"
+        },
+        "config": {
+            "db": {
+                "uri": "%{MONGO-URI}"
+            }
+        }
+    }
+}
+
+{% endhighlight %}
+
+### Type=file
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|name|string|name of the object
+|type|string|"file"
+|content|object|Content Sub-object
+
+
+#### Content sub-object
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|dest|string|name of the object
+|file|string|"file"
+|source|object|(optional) base64 encoded data exported as the file
+|ref|object|reference to the json sub-object to export
+|varsub|boolean|true or false -- perform variable substitution on the content of the file
+|encoding|string|what encoding the data is current stored at.  Options: none, or base64
+
+Example:
+
+{% highlight json %}
+
+{
+    "name": "bct-config",
+    "type": "file",
+    "content": {
+        "dest":"local-production.json",
+        "ref":"sensitive.config",
+        "type":"application/json"
+    }
+}
+
+{% endhighlight %}
+
+
 # Instance
 # Release
 # Policy

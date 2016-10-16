@@ -60,5 +60,6 @@
 
 /* override #service when in .doc-body */
 .doc-body #service {
+  padding: 0 0 0 0;
   text-align: left;
 }
