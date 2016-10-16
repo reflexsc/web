@@ -338,9 +338,9 @@ In the following examples, we reference a set of objects: `bct-tst` (target conf
 The output from evaluating these configurations with Launch Assist would be:
 
 1. The environment variable `MONGO_URI` is set to: `mongodb://test-db/test_db`
-2. The file `local.xml` is created, by reading from the pre-existing `local.xml.in` file, performing variable substitution using values from sensitive.parameters.
+2. The file `local.xml` is created (in the path specified in the Service Object's `cfgdir`), by reading from the pre-existing `local.xml.in` file, performing variable substitution using values from `sensitive.parameters`.
 3. The file `local.keystore` is written, using the embedded contents from `sensitive.data`
-4. The file `local-production.json` is written into the path specified in the Service Object's `cfgdir`, containing the JSON data:
+4. The file `local-production.json` is created, containing the JSON data:
 
 {% highlight json %}
 {
