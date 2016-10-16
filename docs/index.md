@@ -77,4 +77,9 @@ Or to have it write-out the configs to disk:
 launch config bct-tst --commit
 {% endhighlight %}
 
-More details are described in the [Configuration Object](/docs/objects#config) Reference section.
+Details on [Configuration Objects](/docs/objects#config) are in the Object Reference section.
+
+This overall view of the three object types: [*Pipeline*](/docs/objects/#pipeline), [*Service*](/docs/objects/#service) and [*Configurations*](/docs/objects/#config) shows how the `bct` application may have different objects as they come together.  This example also shows the entry point where [*Launch Assist*](/docs/launch-assist/) pivots from, the *Service Object*. 
+
+![batleth example](/docs/summary5.jpg){: .img-center }
+

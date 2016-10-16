@@ -12,7 +12,7 @@ A higher level overview of some of the objects is available in the [Overview](/d
 * [service](/docs/objects#service) - A specific service running for a single purpose, lane, region or tenant.
 * [config](/docs/objects#config) - configuration management
 * [instance](/docs/objects#instance) - an instance of a service.  many instances can relate to a single service
-* [release](/docs/objects#release) - a release of code, relates to a service
+* [build](/docs/objects#build) - a build of code, relates to a service
 * [policy](/docs/objects#policy) - an ABAC Policy
 * [apikey](/docs/objects#apikey) - an API Key
 * [group](/docs/objects#group) - a grouping of API keys for policy management
@@ -109,7 +109,7 @@ The central pivot point referencing other objects.
 |dynamic-instances|array|list of dynamically created instances (such as from a container management plugin service)
 |lane|string|the lane in the pipeline, for the current stage
 |region|string|(optional) region string, to help separate regions (if needed)
-|target|string|(optional) reference to release object
+|target|string|(optional) reference to build object
 |tenant|string|(optional) string for tenant (in a multi-tenant environment)
 |version-url|string|(optional) string used by [Reflex Version-Check module](/docs/version-check)
 |pipeline|string|link to the name of the pipeline
@@ -137,11 +137,78 @@ Example:
 
 # Config
 
-The concepts behind [Secrets and Configuratins](/docs/#secrets-and-configurations) are fully described separately.  Herein are simply the object definitions.
+The higher level concepts behind [Secrets and Configuratins](/docs/#secrets-and-configurations) are described separately.
 
-There are two types of Config object: parameter, and file.
+There are two types of Configuration objects: Parameter, and File.  If the type is File, then it should include a content section which describes how to store data as a file.  Conventionally a parameter object exports to a File object.
 
-### Type=parameter
+You have three types of relationships between Config objects: *Extends*, *Imports*, and *Exports*.  These relationships act differently to serve different purposes:
+
+**Extends**
+
+* Goes up a hierarchy, recursively
+* Preference given to values lower in tree (child overrides parent)
+* Ignored on exported target
+
+**Imports**
+
+* Merges a single object into current
+* Preference given to values on imported object, not current
+* Imports does not merge 'extends' nor 'imports' values
+* Can be used on exported targets
+
+**Exports**
+
+* Exported objects are started as a clone of source object
+* Attribute preference is given to target object values (they will override source object values).
+* Extends is not processed on target objects (no hierarchy processed)
+* Imports is processed on target objects
+* Exported objects should be type=file, otherwise nothing happens
+
+## Exporting Configurations
+
+There are a few ways to export configurations:
+
+* A branch of the final configuration object can be inserted to STDIN (ideal)
+* A branch of the final configuration object is saved as a JSON file
+* Local files are processed for variable substitution: %{VARIABLE}
+* An embedded file on a File object is decoded and saved to disk
+* Parameters are set as process environment variables (dangerous when using secrets)
+
+## Variable Substitution
+
+* Variables are substituted using the syntax: `%{VARIABLE}`
+
+* The name of the variable is looked up on the configuration object (after it is flattened) by referencing `sensitive.parameters` as well as any other object references defined in the `procvars` array.
+
+* All referenced object values must be strings or numbers.  Arrays or sub-objects are ignored.
+* Variables may reference values that in turn have variables.  All variables are fully resolved.  If the following process variables were used:
+
+{% highlight json %}
+{
+    "sensitive": {
+      "parameters": {
+        "ENV": "tst",
+        "NAME": "manage",
+        "ENV-SUFFIX": "-%{ENV}",
+        "FULL-NAME": "%{NAME}%{ENV-SUFFIX}"
+      }
+    }
+}
+{% endhighlight %}
+
+And the contents of a file to process were:
+
+{% highlight bash %}
+hostname="%{FULL-NAME}"
+{% endhighlight %}
+
+The result would be:
+
+{% highlight bash %}
+hostname="manage-tst"
+{% endhighlight %}
+
+### Config Type=parameter
 
 {: .table .values }
 |Type|  value|  Description
@@ -155,18 +222,39 @@ There are two types of Config object: parameter, and file.
 |extends|array|A list of object names to extend
 |imports|array|A list of object names to import
 
-Example:
+### Config Type=file
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|name|string|name of the object
+|type|string|"file"
+|content|object|Content Sub-object
+
+**Config Content sub-object**
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|dest|string|name of the object
+|file|string|"file"
+|source|object|(optional) base64 encoded data exported as the file
+|ref|object|reference to the json sub-object to export
+|varsub|boolean|true or false -- perform variable substitution on the content of the file
+|encoding|string|what encoding the data is current stored at.  Options: none, or base64
+
+### Example Config
+
+In the following examples, we reference a set of objects: `bct-tst` (target config from the Service), `bct` (parent config) and `bct-config1`, `bct-config2` and `bct-keystore` (exported objects).  There should be a pre-existing file named local.xml.in, which is processed for variables including %{DB_URL}.  Can you determine what the result of processing this would be?
+
 {% highlight json %}
 {
-    "name": "bct-tst",
+    "name": "bct",
     "type": "parameter",
-    "extends": ["bct"],
-    "procvars": ["sensitive.parameters"],
+    "extends": ["common"],
+    "exports": ["bct-config1", "bct-config2"],
     "sensitive": {
         "parameters": {
-            "MONGO-HOSTS":"test-db",
-            "MONGO-DBID":"test_db",
-            "MONGO-PASSWORD":"asdf",
             "MONGO-URI":"mongodb://%{MONGO-HOSTS}/%{MONGO-DBID}"
         }
     },
@@ -176,11 +264,30 @@ Example:
 }
 
 {
-    "name": "bct",
+    "name": "bct-tst",
     "type": "parameter",
-    "extends": ["common"],
-    "imports": ["bct-config"],
-    "exports": ["bct-file"]
+    "extends": ["bct"],
+    "exports": ["bct-keystore"],
+    "procvars": ["sensitive.config.db"],
+    "sensitive": {
+        "parameters": {
+            "MONGO-USER":"test_user",
+            "MONGO-PASS":"not a good password",
+            "MONGO-HOSTS":"test-db",
+            "MONGO-DBID":"test_db"
+        },
+        "config": {
+            "db": {
+                "server": "%{MONGO-HOSTS}",
+                "db": "%{MONGO-DBID}",
+                "user": "%{MONGO-USER}",
+                "pass": "%{MONGO-PASS}",
+                "replset": {
+                    "rs_name": "myReplicaSetName"
+                }
+            }
+        }
+    }
 }
 
 {
@@ -194,50 +301,17 @@ Example:
 }
 
 {
-    "name": "bct-config",
-    "type": "parameter",
-    "sensitive": {
-        "parameters": {
-            "GROUP-CONFIG":"moar"
-        },
-        "config": {
-            "db": {
-                "uri": "%{MONGO-URI}"
-            }
-        }
+    "name": "bct-config1",
+    "type": "file",
+    "content": {
+        "source": "local.xml.in",
+        "dest": "local.xml",
+        "varsub": true
     }
 }
 
-{% endhighlight %}
-
-### Type=file
-
-{: .table .values }
-|Type|  value|  Description
-|----|-|-
-|name|string|name of the object
-|type|string|"file"
-|content|object|Content Sub-object
-
-
-#### Content sub-object
-
-{: .table .values }
-|Type|  value|  Description
-|----|-|-
-|dest|string|name of the object
-|file|string|"file"
-|source|object|(optional) base64 encoded data exported as the file
-|ref|object|reference to the json sub-object to export
-|varsub|boolean|true or false -- perform variable substitution on the content of the file
-|encoding|string|what encoding the data is current stored at.  Options: none, or base64
-
-Example:
-
-{% highlight json %}
-
 {
-    "name": "bct-config",
+    "name": "bct-config2",
     "type": "file",
     "content": {
         "dest":"local-production.json",
@@ -246,11 +320,76 @@ Example:
     }
 }
 
+{
+    "name": "bct-keystore",
+    "type": "file",
+    "content": {
+        "dest":"local.keystore",
+        "ref":"sensitive.data",
+        "encoding": "base64"
+    },
+    "sensitive": {
+        "data": "bm90IHJlYWxseSBhIGtleXN0b3JlIG9iamVjdAo="
+    }
+}
+
 {% endhighlight %}
 
+The output from evaluating these configurations with Launch Assist would be:
+
+1. The environment variable `MONGO_URI` is set to: `mongodb://test-db/test_db`
+2. The file `local.xml` is created, by reading from the pre-existing `local.xml.in` file, performing variable substitution using values from sensitive.parameters.
+3. The file `local.keystore` is written, using the embedded contents from `sensitive.data`
+4. The file `local-production.json` is written into the path specified in the Service Object's `cfgdir`, containing the JSON data:
+
+{% highlight json %}
+{
+    "db": {
+        "server": "test-db",
+        "db": "test_db",
+        "user": "test_user",
+        "pass": "not a good password",
+        "replset": {
+            "rs_name": "myReplicaSetName"
+        }
+    }
+}
+{% endhighlight %}
 
 # Instance
-# Release
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|name|string|name of the object
+|service|string|name of the service using the instance
+|status|string|status of the service: ok or failed
+|address|object|a sub-object containing the address values
+
+**Instance Address sub-object**
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|host|string|internal hostname used by the instance
+|port|int|port used by the service (only one port)
+|service|string|(optional) public hostname for service, such as if it is in front of a load balancer.
+
+# Build
+
+Builds are useful in tracking software through a continuous delivery cycle.
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|name|string|name of the object
+|application|string|unique string to identify a single application (often refers to the pipeline, but multiple pipelines may use the same application)
+|version|str|version string
+|state|string|
+|status|object|Includes a key for each of the defined steps with a value from the set(incomplete/started/success/failure/skipped). Useful for tracking complex builds. Example: `compile: success`, or `prepare: skipped`
+|type|string|optional "type" of build (i.e. tarball, container, etc)
+|link|string|(optional) url to build artifact
+
 # Policy
 # Apikey
 # Group
