@@ -9,15 +9,15 @@ permalink: /docs/install/
 You can use [Docker](https://www.docker.com/products/overview) to get a feel for things.  Start by running the Engine:
 
 {% highlight bash %}
-curl -sLO https://raw.github.com/reflexsc/reflex/master/.pkg/demoengine.sh && bash demoengine.sh
+curl -sLO https://raw.github.com/reflexsc/reflex/master/.pkg/demoengine.sh && bash demoengine.sh start
 {% endhighlight %}
 
-Followed by connecting to it using the `reflexsc/tools` container.  Set the `REFLEX_APIKEY` from above, as well as the `REFLEX_URL` to the local host:
+Followed by connecting to it using the `reflexsc/tools` container.  Set the `REFLEX_APIKEY` from above:
 
 {% highlight bash %}
-export REFLEX_APIKEY=...
-export REFLEX_URL=http://localhost:54000/
-docker run -t reflexsc/tools reflex engine list
+eval $(./demoengine.sh address) # this sets REFLEX_URL
+export REFLEX_APIKEY=... # from above
+./demoengine.sh reflex engine config list
 {% endhighlight %}
 
 # Direct Install
