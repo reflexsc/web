@@ -15,7 +15,6 @@ curl -sLO https://raw.github.com/reflexsc/reflex/master/.pkg/demoengine.sh && ba
 Followed by connecting to it using the `reflexsc/tools` container.  Set the `REFLEX_APIKEY` from above:
 
 {% highlight bash %}
-eval $(./demoengine.sh address) # this sets REFLEX_URL
 export REFLEX_APIKEY=... # from above
 ./demoengine.sh reflex engine config list
 {% endhighlight %}
