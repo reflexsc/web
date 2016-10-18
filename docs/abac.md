@@ -40,7 +40,7 @@ Example Policy Expressions:
 
 {% highlight python %}
     token_name == "master"     # the master user (i.e. root)
-    re.search("^10\.0", ip)
+    re.search(r'^10\.0', ip)
     token_name in groups.dev_team
 {% endhighlight %}
 
