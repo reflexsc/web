@@ -16,21 +16,21 @@ Because of this, your secrets store can be accessible from many sources, and par
 
 Every time an object is accessed, the ABAC *policies* are evaluted using the *attributes* relevant to the requesting session.  The policy is evaluated as a logical expression, using limited python syntax.  The namespace available includes the following.  Some attributes may be zero length strings, if they are not in the current session.
 
-* obj -- the object in question
-* rx -- regular expression library (re from python)
-* cert_cn -- common name of the client SSL certificate *pending implementation*
-* user_name -- the HTTP Basic Auth username *pending implementation*
-* ip -- the client IP address (as a string)
-* token_nbr -- the internal number of the authorized token
-* token_name -- the name of the authorized token
-* http_headers -- a dictionary containing the HTTP headers of the current session
-* groups -- a sub dictionary containing all of the available groups of tokens
-* sensitive -- a boolean expression defining if the current access request is for sensitive data or not (to be decrypted).  If a policy of this nature evaluates false, the data element is not decrypted, but the overall object may still be returned.
+* __obj__ -- the object in question
+* __rx__ -- regular expression library (re from python)
+* __cert_cn__ -- common name of the client SSL certificate *pending implementation*
+* __user_name__ -- the HTTP Basic Auth username *pending implementation*
+* __ip__ -- the client IP address (as a string)
+* __token_nbr__ -- the internal number of the authorized token
+* __token_name__ -- the name of the authorized token
+* __http_headers__ -- a dictionary containing the HTTP headers of the current session
+* __groups__ -- a sub dictionary containing all of the available groups of tokens
+* __sensitive__ -- a boolean expression defining if the current access request is for sensitive data or not (to be decrypted).  If a policy of this nature evaluates false, the data element is not decrypted, but the overall object may still be returned.
 
 There are two data elements that are used to define a complete ABAC scenario for an object:
 
-* The Policy -- where the access expression is defined
-* The Policy Scope -- an object that defines how the policy is matched to other objects
+* __The Policy__ -- where the access expression is defined
+* __The Policy Scope__ -- an object that defines how the policy is matched to other objects
 
 The Policy Scope is a separate expression that is used to limit policies to specific data.
 
