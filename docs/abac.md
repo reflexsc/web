@@ -14,18 +14,20 @@ Because of this, your secrets store can be accessible from many sources, and par
 
 # Bringing it together
 
-Every time an object is accessed, the ABAC *policies* are evaluted using the *attributes* relevant to the requesting session.  The policy is evaluated as a logical expression, using limited python syntax.  The namespace available includes the following.  Some attributes may be zero length strings, if they are not in the current session.
+Every time an object is accessed, the ABAC *policies* are evaluted using the *attributes* relevant to the requesting session.  The policy is evaluated as a logical expression, using limited python syntax.  The namespace available includes the following.  Some attributes may be zero length strings, if they are not in the current session.  Some attributes may also use a "dictlib.Obj" syntax where you can use `obj.name` syntax instead of `obj['name']` -- for performance, this is not available in all cases.
 
-* __obj__ -- the object in question, using dictlib.Obj dot parameter notation (i.e. `obj.name` may be used instead of `obj['name']`)
-* __rx__ -- regular expression library (re from python)
+* __re__ -- regular expression library (re from python)
 * __cert_cn__ -- common name of the client SSL certificate *pending implementation*
 * __user_name__ -- the HTTP Basic Auth username *pending implementation*
 * __ip__ -- the client IP address (as a string)
 * __token_nbr__ -- the internal number of the authorized token
 * __token_name__ -- the name of the authorized token
-* __http_headers__ -- a dictionary containing the HTTP headers of the current session
-* __groups__ -- a sub dictionary containing all of the available groups of tokens, using dictlib.Obj dot parameter notation
+* __http_headers__ -- a dictionary containing the HTTP headers of the current session (dictlib.Obj dot parameter notation is available)
+* __groups__ -- a sub dictionary containing all of the available groups of tokens (dictlib.Obj dot parameter notation is available)
+* __action__ -- the action being performed (read, write)
 * __sensitive__ -- a boolean expression defining if the current access request is for sensitive data or not (to be decrypted).  If a policy of this nature evaluates false, the data element is not decrypted, but the overall object may still be returned.
+* __obj_type__ -- the type of object (config, instance, service, etc)
+* __obj__ -- the object in question
 
 There are two data elements that are used to define a complete ABAC scenario for an object:
 
@@ -42,13 +44,14 @@ Example Policy Expressions:
     token_name == "master"     # the master user (i.e. root)
     re.search(r'^10\.0', ip)
     token_name in groups.dev_team
+    token_name in groups.dev_team and sensitive == True and re.search(r'^10\.0', ip)
 {% endhighlight %}
 
 Example Scope Expressions:
 
 {% highlight python %}
-    obj.name[:3] == "res"
-    obj.type == "parameter"
+    obj['name'][:3] == "res"
+    obj_type == "config"
     re.search("-common-", obj.name)
 {% endhighlight %}
 

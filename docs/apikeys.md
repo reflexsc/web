@@ -6,29 +6,34 @@ permalink: /docs/apikeys/
 
 Reflex Engine is an [Attribute Based Access Control (ABAC)](/docs/abac/) solution, supporting policies which can use any number of attributes for authorization.  However, one of the more common supported attributes is an authentication token with API keys.
 
-There are two types of data used in this process:
+There are two data types used in this process:
 
-* **[Reflex API Key](#reflex-api-key)** -- a two part string providing your unique identification and a shared secret used for authentication
-* **[Reflex API Token](#reflex-api-token)** -- a single use token sent to a server, after authorization of the session is established
+* **[Reflex API Key](#reflex-api-key)** -- used to signin up front -- a two part string providing your unique identification and a shared secret used for authentication
+* **[Reflex API Token](#reflex-api-token)** -- sent after signin to each API -- a single use token sent to a server, after authorization of the session is established
 
-Calls made to the API's must use the *[Reflex API Token](#reflex-api-token)* which is specific to a session, where the session is established using the information from the *Reflex API Key*.  This is a two-step process:
+Calls made to the API's must use the *[Reflex API Token](#reflex-api-token)* which is specific to a session, where the session is established using the information from the *Reflex API Key*.
 
-1. [Create your Session](#create-your-session): Send the identifier portion of the API key, in a JWT, using the secret portion of the API Key to sign the JWT.
+This is a two-step process:
+
+1. [Signin to a Session](#create-your-session): Send the identifier from the API key, in a JWT, using the secret portion of the API Key to sign the JWT.
   * In response you are given a session cookie and a session secret.
-2. Make [Authorized API Calls](#authorized-api-calls), send a *[Reflex API Token](#reflex-api-token)* with each API Call, for the duration of the session.
+2. Make [Authorized API Calls](#authorized-api-calls), send a *[Reflex API Token](#reflex-api-token)* with each API Call, for the duration of the session created in step #1.  The Token is a JWT using the session id and signed with the session secret.
+
+The benefits of this process:
+
+* The API Key may be stored offline, and only contains the components used to make a signin JWT.  This means the signin JWT is always unique.
+* Direct API keys always use a short term session id and secret, given after the signin is successful.  This reduces the replay vector significantly.
 
 # Reflex API Key
-The ApiKey is provided with two parts, separated with a period:
+The ApiKey is shared externally and may be stored in various mediums.  It has the components required to create a signin JWT.  It is provided as a string of two parts, separated with a period:
 
 	your-identifier.your-secret
 
 Example:
 
-	8f152510-7645-11e6-8bc2-001c4244de11.V1xn1eDdW7McbLG4k7OuNixZvO8qrRQfiapEuH20b9y80QIX+0rbJ9cZFY4hUcImgal/b2/7DNSSSWvqhInrK2RQ
+	name-of-token.V1xn1eDdW7McbLG4k7OuNixZvO8qrRQfiapEuH20b9y80QIX+0rbJ9cZFY4hUcImgal/b2/7DNSSSWvqhInrK2RQ
 
-The secret portion is base64 encoded random data, and should be decoded before being used as a secret for a jwt.
-
-However, it is not sent verbatim.  You send it as a JWT with the following payload:
+The secret portion is base64 encoded random data, and should be decoded before being used as a secret.  A signin JWT has the following payload:
 
 	jti: your-identifier
 	seed: 256 bytes of random data
@@ -38,21 +43,21 @@ It is signed by the base64 decoded secret part of the API key, and is sent to th
 
 # Reflex API Token
 
-A Reflex API Token is a JWT created using the session information provided by Authorizing the *[Reflex API Key](#reflex-api-key)*, and signed with the session secret provided at the same time.  The Reflex API Token is a one-time use JWT, and includes the following information:
+A Reflex API Token is a JWT created using the session information provided by Signing in using the *[Reflex API Key](#reflex-api-key)*.  The API Token is a short-lived JWT, generated using session information from the signin process.  An API Token includes the following JWT payload:
 
 	jti: unique request ID
-	exp: 1 minute from now
+	exp: session expiration time
 
 This JWT is then sent to Reflex Engine's auth endpoint in the `X-ApiToken` header, using the secret part of your apikey to sign the JWT.
 
-# Create Your Session
+# Signin to a Session
 
-The first step is to get an Authorized Session.  Use the *[Reflex API Key](#reflex-api-key)* to create an API Key JWT as described in the *[Reflex API Key](#reflex-api-key)* section.
+Create a JWT as described in the *[Reflex API Key](#reflex-api-key)* section.
 
 Example (Node.js):
 
 {% highlight javascript %}
-var apikey = "8f152510-7645-11e6-8bc2-001c4244de11.V1xn1eDdW7McbLG4k7OuNixZvO8qrRQfiapEuH20b9y80QIX+0rbJ9cZFY4hUcImgal/b2/7DNSSSWvqhInrK2RQ".split(".")
+var apikey = "myid.V1J9cZFY4hUcImgal/b2/7DNSSSWvqhInrK2RQ".split(".")
 var api_id, api_secret = apikey.split(".")
 var secret = new Buffer(api_secret, 'base64')
 var jwt = require('jwt-simple');
@@ -69,8 +74,8 @@ The service will respond with either 401 Unauthorized, a 403 Forbidden (your API
 {% highlight json %}
 {"secret": "...base64...",
  "session": "session ID - same as cookie",
- "expires_at": posix time session expires,
- "jti": id to send back as the jti,
+ "expires_at": 1111, // posix time session expires,
+ "jti": "id to send back as the jti"
  "status": "success"}
 {% endhighlight %}
 

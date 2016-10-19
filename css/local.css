@@ -63,3 +63,8 @@
   padding: 0 0 0 0;
   text-align: left;
 }
+
+#content p {
+  line-height: 150%;
+  margin-top: 1em;
+}
