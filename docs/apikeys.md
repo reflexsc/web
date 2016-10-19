@@ -72,11 +72,13 @@ This JWT is then sent as a GET to Reflex Engine's auth endpoint in the `X-ApiKey
 The service will respond with either 401 Unauthorized, a 403 Forbidden (your API Key is not allowed), or 200 OK with a content-type of `application/json` and a payload including two keys:
 
 {% highlight json %}
-{"secret": "...base64...",
+{
+ "secret": "...base64...",
  "session": "session ID - same as cookie",
  "expires_at": 1111, // posix time session expires,
- "jti": "id to send back as the jti"
- "status": "success"}
+ "jti": "id to send back as the jti",
+ "status": "success"
+}
 {% endhighlight %}
 
 Example:
