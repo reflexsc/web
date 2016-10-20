@@ -6,16 +6,21 @@ permalink: /docs/install/
 
 # Test Drive
 
-For an easy test drive with little commitment, you can use [Docker](https://www.docker.com/products/overview), using a wrapper bash script `demoengine.sh`.
+For an easy test drive with little commitment, you can use [Docker](https://www.docker.com/products/overview), using a wrapper bash script `demoengine.sh`.  This script runs in two steps--it wraps the server (engine) and the client--each are in containers.
+
 Start by pulling the script and running the Engine:
 
 {% highlight bash %}
 curl -sLO https://raw.github.com/reflexsc/reflex/master/.pkg/demoengine.sh
 chmod +x demoengine.sh
-./demoengine.sh start
 {% endhighlight %}
 
-After the Engine is ready, it will print a REFLEX_APIKEY.  At this point, set key and use the cli:
+Then run the engine:
+{% highlight bash %}
+./demoengine.sh engine
+{% endhighlight %}
+
+After the Engine is ready, it will print a REFLEX_APIKEY.  At this point, you have a reflex engine with some mock data.  Set key and use the `reflex` command from within a container:
 
 {% highlight bash %}
 export REFLEX_APIKEY=... # from above
