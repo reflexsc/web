@@ -47,6 +47,11 @@ Next, initialize the mock data, using the tools container, and then try a reflex
 
 Bonus! Some of the data in the demo set is the same data used in the [Object documentation](/docs/objects/).  Additional details on what is supported by the `reflex` command are available in the [Reflex Tools](/docs/reflex-tools/) section.
 
+Next steps, you can investigate our Tutorials:
+
+* [Reflex Services and Launch Assist](/docs/tutorial-services/)
+* [Linking Pipelines](/docs/tutorial-pipeline/)
+
 # Easy Install
 
 If you would rather install things yourself, this is supported in MacOS and linux.
