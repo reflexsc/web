@@ -1,3 +1,14 @@
+<script language="javascript">
+function m (tld, dom, addr, subj) {
+    addr = "to:" + addr + "@";
+    addr += dom + "." + tld;
+    if (subj) {
+        addr += "?subject=" + subj;
+    }
+    document.location.href = "mail" + addr;
+}
+</script>
+
 <!-- Header Start -->
 <header>
 <div class="container">
@@ -22,9 +33,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ site.baseurl }}/">Home</a></li>
-                <li><a href="{{ site.baseurl }}/docs/concepts/">Concepts</a></li>
-                <li><a href="{{ site.baseurl }}/docs/install/">Install</a></li>
                 <li><a href="{{ site.baseurl }}/docs/">How it Works</a></li>
+                <li><a href="{{ site.baseurl }}/docs/install/">Install</a></li>
+                <li><a href="{{ site.baseurl }}/contact/">Contact</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
