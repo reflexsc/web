@@ -13,9 +13,45 @@ A higher level overview of some of the objects is available in the [Overview](/d
 * [config](/docs/objects#config) - configuration management
 * [instance](/docs/objects#instance) - an instance of a service.  many instances can relate to a single service
 * [build](/docs/objects#build) - a build of code, relates to a service
-* [policy](/docs/objects#policy) - an ABAC Policy
+* [policy](/docs/objects#policy) - an ABAC Policy (tested on object access)
+* [policyscope](/docs/objects#policyscope) - an ABAC Policy Scope (tested on object change)
 * [apikey](/docs/objects#apikey) - an API Key
 * [group](/docs/objects#group) - a grouping of API keys for policy management
+* [state](/docs/objects#state) - a general purpose state object
+
+## Flexible Schema
+
+Many of the objects support a NoSQL schema-light model, where you can add your own attributes to them above and beyond what is defined herein.  This is valuable for you to be able to extend things to meet your own needs.  In particular, the [state](#state) object is designed for general ad-hoc purposes.
+
+## Archived Copies
+
+Some of the objects automatically create backups each time they are changed.  These are:
+
+* [pipeline](#pipeline)
+* [service](#service)
+* [config](#config)
+* [policy](#policy)
+* [policyscope](#policyscope)
+
+You cannot delete archived copies of objects (by design).  If you must delete them, it is only possible via direct db access to MySQL.
+
+*Todo: Exposing the archived list and copies via the CLI.*
+
+## Soft Relationships
+
+In some cases, such as the [service](#service) and [config](#config) objects, there are internal "soft" relationships that the Reflex Engine supports.  This mechanism works such that if you submit a name of an object as part of an array that it knows about (such as `config.extends`) then at write time the Reflex Engine tries to map out the relationship to an ID.  This is then translated into the format:
+
+{% highlight text %}
+name.id
+{% endhighlight %}
+
+If it cannot find the object, it puts `notfound` in place of the numeric ID.  This is okay, and is just an indicator to you that it cannot find the referenced object.
+
+Whenever the relationship is resolved, Reflex Engine always will try to lookup by the `id` part of the identifier first (unless it is `notfound`).  If that fails, it will try to lookup by the `name` part of the identifier.
+
+This facilitates both performance and easy renaming of objects.
+
+In some cases there are also *hard* relationships which are mapped by Reflex Engine under the hood.  These will appear in your objects as `something_id` (such as `pipeline_id` on the service object, linking to its pipeline.  You will not be able to change these attributes--they are always remapped at each store of the object, based on the `something` attribute.
 
 # Pipeline
 
@@ -390,6 +426,52 @@ Builds are useful in tracking software through a continuous delivery cycle.
 |type|string|optional "type" of build (i.e. tarball, container, etc)
 |link|string|(optional) url to build artifact
 
+*Todo: Insert documentation and links to using builds and the release / promote command*
+
 # Policy
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|name|string|name of the object
+|policy|string|expression string describing the policy. lightweight python syntax.  Reference [Bringing it together](#bringing-it-together) in the ABAC documentation.
+
+Policies must also be matched to objects with a Policyscope entry.
+
+# Policyscope
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|name|string|name of the object
+|matches|string|expression string describing the policy. lightweight python syntax.  Reference [Bringing it together](#bringing-it-together) in the ABAC documentation.
+|actions|set|The type of action to match on, as a comma separated list of strings, from the set: `read`, `write`, `admin`; where `admin` is both read and write.
+|type|enum|What method to use when matching objects.  Either `targetted` or `global`.  `targetted` scopes match individual objects, where `global` scopes apply to the entire object class (table).
+
 # Apikey
+
+To generate a new APIkey, just create a new object with a `name` only, and it will generate the secrets for you.
+
+The APIkey object is the `name` plus `.` and any one of the base64 elements of secrets.
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|name|string|name of the object
+|description|string|optional string describing the Apikey
+|secrets|array|an array of randomly generated secret data.  Generated for you.  If you need to change your secret data, you add to this array and both sets of secrets will be allowed (useful when switching out keys).  Secret data is stored in base64 format.
+
 # Group
+
+Groupings of Apikeys or Pipelines for easier policy management.  When creating and updating a group, add the apikey names only (not secrets) to the `group` array.
+
+{: .table .values }
+|Type|  value|  Description
+|----|-|-
+|name|string|name of the object
+|group|array|A mapping of Apikeys or Pipelines (future)
+|type|enum|Either `Apikey` or `Pipeline` (specifying what type of object is being grouped)
+
+# State
+
+The State object is a general purpose object.  There are no required fields other than `name`
