@@ -1,4 +1,5 @@
 
+destination: ../stage
 exclude:
   - "/vendor/"
   - "Gemfile"
