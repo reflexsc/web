@@ -47,6 +47,12 @@ Next, initialize the mock data, using the tools container, and then try a reflex
 
 Bonus! Some of the data in the demo set is the same data used in the [Object documentation](/docs/objects/).  Additional details on what is supported by the `reflex` command are available in the [Reflex Tools](/docs/reflex-tools/) section.
 
+When you are done, don't forget to cleanup:
+
+{% highlight bash %}
+docker-compose down
+{% endhighlight %}
+
 Next steps, you can investigate our Tutorials:
 
 * [Reflex Services and Launch Assist](/docs/tutorial-services/)
