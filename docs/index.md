@@ -7,7 +7,7 @@ permalink: /docs/
 Reflex has two basic roles:
 
 * [Service Management](#service-management)
-* [Secrets and Configurations](#delivery-of-secrets-and-configurations)
+* [Secrets and Configurations](#secrets-and-configurations)
 
 # Service Management
 
