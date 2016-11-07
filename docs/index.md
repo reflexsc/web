@@ -55,9 +55,9 @@ This last option is how Reflex works.  When somebody violates your cloud control
 
 ## Configuration Basics
 
-Reflex Configurations are very flexible, designed to store both configurations, as well as secrets--to be delivered at run-time.
+Reflex Configurations are very flexible and secure, designed to store both configurations, as well as secrets--to be delivered at run-time.  Reflex supports storing them as files within the container, inserting them as environment variables, or delivering them directly to stdin of the container process (most secure).
 
-Configuration objects ultimately output configuration data, which can in turn be used by your application.  The Configuration objects are JSON documents supporting deep merging for dictionary elements, with inheritance and references to other objects, and ordered set-unions for arrays.
+Configuration objets in Reflex support a heirarchy for easy maintenance at scale, and are flattened at run time.  The Configuration objects are JSON documents supporting deep merging for dictionary elements, with inheritance and references to other objects, and ordered set-unions for arrays.  Examples area available in the [Configuration Objects](/docs/objects/#config) section of the Object Reference documentation.
 
 There are three relationship types: `extends`, `imports`, and `exports`.
 
