@@ -64,33 +64,25 @@ If you would rather install things yourself, this is supported in MacOS and linu
 
 Reflex requires python3, pip and virtualenv to exist, then it loads itself into its own virtualenv.
 
-For MacOS, first get an updated python3, and make sure virtualenv is installed:
+For MacOS, first get an updated python3, then use pip3 to load reflex:
 
 {% highlight bash %}
 sudo brew upgrade python3
-sudo pip install virtualenv
-{% endhighlight %}
-
-Network easy install (does not require super user privileges).  This only configures the client by default.
-
-{% highlight bash %}
-curl -sLO https://raw.github.com/reflexsc/reflex/master/.pkg/getreflex.sh && bash ./getreflex.sh
+pip3 install -U rfx rfxcmd
 {% endhighlight %}
 
 Notes:
 
-* Pull updates at any time with: `reflex update`
 * By default this does not configure the engine
-* Reflex is stored at: `$HOME/.reflex/current`, you can always cd there and re-run the install script (see [Source Install](#source-install))
 * For more details on the engine, see the section [Reflex Engine](/docs/reflex-engine)
 
-# Source Install
+# Source Install (Engine)
 
-For full control, you can do a simple source install from github:
+For full control and installing the Engine, you can do a simple source install from github:
 
 {% highlight bash %}
 git clone https://github.com/reflexsc/reflex.git
 cd reflex
-./install.sh local --engine
+./install.sh root --engine
 {% endhighlight %}
 
