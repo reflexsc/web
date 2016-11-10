@@ -4,8 +4,9 @@ title: Reflex Engine
 permalink: /docs/reflex-engine/
 ---
 
-
 Reflex Engine is a ABAC based REST service providing the [Reflex API](/docs/api/). Most objects are implicitly versioned, it runs atomically, and each individual service is stateless allowing for easy scale
+
+It is simple to Install, described in the [Installation Documentation](/docs/install/#install-engine).
 
 Reflex engine delivers secrets, but cannot deliver to itself.  This means you ultimately will need to configure the db connections for reflex in a less secure manner (storing files, etc).
 

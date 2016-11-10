@@ -6,6 +6,53 @@ permalink: /docs/install/
 
 Please Note!  Reflex is *beta* software.  We would love help from others testing it out and finding kinks in these docs, but understand we are still polishing things up.
 
+Three options:
+
+* [**Easy Install**](#easy-install) &mdash; Install the local commands
+* [**Install Engine**](#install-engine) &mdash; Install the Engine
+* [**Test Drive**](#test-drive) &mdash; Easy test drive of all parts, using Docker.
+
+# Easy Install
+
+This is supported in MacOS and Linux, with Python version 3.
+
+Use PIP to load the reflex commands:
+
+{% highlight bash %}
+pip3 install -U rfxcmd
+{% endhighlight %}
+
+Notes:
+
+* This does not load the engine &mdash; see the section [Install Engine](#install-engine)
+* On MacOS you may want to use brew to get python3: `sudo brew upgrade python3`
+
+# Install Engine
+
+The engine itself is easily installed with PIP.  Once you have it installed, reference the section [Reflex Engine](/docs/reflex-engine/) for details on configuring it to run.
+
+{% highlight bash %}
+pip3 install -U rfxengine
+{% endhighlight %}
+
+However, it also uses the Oracle MySQL connector, which must be installed separately (not available directly via PIP).  We have included a command to make this easy:
+
+{% highlight bash %}
+get_mysql_connector.py
+{% endhighlight %}
+
+## Source Install
+
+Alternatively, you can pull the source code directly and install in developer mode:
+
+{% highlight bash %}
+git clone https://github.com/reflexsc/reflex.git
+cd reflex
+./install.sh develop --engine
+{% endhighlight %}
+
+You can also install with `root` instead of `develop`, but this loads the modules from PIP so it may not be as useful.
+
 # Test Drive
 
 For an easy test drive with little commitment, you can use [Docker](https://www.docker.com/products/overview), using a wrapper bash script `demoengine.sh`.  There are a few steps:
@@ -57,32 +104,4 @@ Next steps, you can investigate our Tutorials:
 
 * [Reflex Services and Launch Assist](/docs/tutorial-services/)
 * [Linking Pipelines](/docs/tutorial-pipeline/)
-
-# Easy Install
-
-If you would rather install things yourself, this is supported in MacOS and linux.
-
-Reflex requires python3, pip and virtualenv to exist, then it loads itself into its own virtualenv.
-
-For MacOS, first get an updated python3, then use pip3 to load reflex:
-
-{% highlight bash %}
-sudo brew upgrade python3
-pip3 install -U rfx rfxcmd
-{% endhighlight %}
-
-Notes:
-
-* By default this does not configure the engine
-* For more details on the engine, see the section [Reflex Engine](/docs/reflex-engine)
-
-# Source Install (Engine)
-
-For full control and installing the Engine, you can do a simple source install from github:
-
-{% highlight bash %}
-git clone https://github.com/reflexsc/reflex.git
-cd reflex
-./install.sh root --engine
-{% endhighlight %}
 
