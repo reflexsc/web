@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: tutorial
 title: Linking Pipelines TUTORIAL
 permalink: /docs/tutorial-pipeline/
 ---

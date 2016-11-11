@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: tutorial
 title: Reflex Docker Cloud TUTORIAL
 permalink: /docs/tutorial-dockercloud/
 ---
@@ -11,40 +11,19 @@ Assumptions:
 * You understand Docker and Linux.
 * You have a [Docker Cloud](https://cloud.docker.com/) cluster already functioning.
 * You have a MariaDB running and available connectable to your Docker Cloud instance.
+* You have [Installed Reflex Tools](/docs/install/#easy-install)
+* You have [Run the Services Tutorial](/docs/tutorial-service/)
 
-The steps of this extended demo are:
+Steps:
 
-1. Add Reflex Tools to your service Container (for this example we use hello world).
-2. Create a Reflex Engine Stack in Docker Cloud
-3. Define your Service in Docker Cloud
+1. [Add Reflex Tools to your Dockerfile](/docs/tutorial-add2container/)
+2. [Create your Reflex Service](#create-your-reflex-service)
+3. [Define in Docker Cloud](#define-in-docker-cloud)
 
-# Add Reflex Tools to your Container
+# Create your Reflex Service
 
-This step will vary based on the type of container you use.  The simplest approach is to load your container and run the [Easy Install](/docs/install/#easy-install).  For this example, we will extend an existing container--however, these same steps can be embedded in your original Dockerfile.
+You can start with the demo data set in Reflex Engine, then create your service with:
 
-{% highlight dockerfile %}
-FROM dockercloud/helloworld
+** Coming Soon **
 
-# so it will load dependencies
-RUN apk add --no-cache python3 libffi openssl
-RUN apk add --no-cache --virtual .build-deps \
-        bash curl tar gcc libc-dev libffi-dev \
-        linux-headers make python3-dev
-# the actual reflex command
-RUN pip3 install rfxcmd
-# cleanup unneeded dependencies
-RUN apk del .build-deps && rm -rf ~/.cache
 
-ENTRYPOINT ["/usr/bin/launch"]
-{% endhighlight %}
-
-## Setup the service in Reflex Engine
-
-{coming soon}
-
-## Launch the container
-
-Other Tutorials:
-
-* [Reflex Services](/docs/tutorial-services/)
-* [Linking Pipelines](/docs/tutorial-pipeline/)

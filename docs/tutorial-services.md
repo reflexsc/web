@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: tutorial
 title: Reflex Services and Lauch Assist TUTORIAL
 permalink: /docs/tutorial-services/
 ---
@@ -69,9 +69,9 @@ reflex setup demo
 
 # Build the Service
 
-Todo: Make bringing Reflex Tools into an existing container easier (pip install).
+## *Step-1: Create a docker hello-world*
 
-***Step-1: Create a docker hello-world***
+For simplicity we are re-using the docker engine container.  Reference [Adding Reflex Tools to your Dockerfile](/docs/tutorial-add2container) for how to do this with your own container.
 
 Create a new container named `bct-tst` -- this will use the demo service of the same name.  For this example we will extend the reflexsc/engine container (because it already has reflex tools as well as the engine).  Create a new Dockerfile:
 
@@ -87,7 +87,7 @@ ENTRYPOINT ["/app/reflex/bin/launch", "service"]
 
 The first thing you may notice is the unique Entrypoint.  This is how Reflex works in an Infrastructure as Code polymorphic manner, and the tool is [Launch Assist](/docs/launch-assist/).  Instead, we set how the service launches on the [Pipeline](/docs/objects/#pipeline).
 
-***Step-2: Build the container***
+## *Step-2: Build the container*
 
 Standard docker build.  Try something like:
 
@@ -95,7 +95,7 @@ Standard docker build.  Try something like:
     docker build -t hello-world .
 {% endhighlight %}
 
-***Step-2: Setup the bct pipeline***
+## *Step-3: Setup the bct pipeline*
 
 In the `Dockerfile` we specified an ENTRYPOINT for Launch Assist.  Now we need to define what the containe will actually do.  We set the entrypoint on the `bct` pipeline with:
 
@@ -119,7 +119,7 @@ We tell Launch Assist what service to run through the environment variable `REFL
 
 You will also notice we used the action `merge`.  This allows us to make incremental changes.  We could also have run `edit` and reflex would have brought us into an editor, or `update` which would take the complete object from the CLI.
 
-***Step-3: Test the configuration***
+## *Step-4: Test the configuration*
 
 You can test what will happen by running launch assist yourself, with the `config` argument instead of `service`.  You also have the option of including the service on the command line, which will override the environment variable:
 
@@ -129,7 +129,7 @@ You can test what will happen by running launch assist yourself, with the `confi
 
 It will likely error and fail, as the `--commit` argument tells it to write any changes to disk, and your local machine may not refelect the same `cfgdir`.  You can leave off `--commit` and it will just resolve the objects and print the combined result to your screen.
 
-***Step-5: Run the container***
+## *Step-5: Run the container*
 
 Now just launch the container.  You need to include the three environment variables, even if you have set them locally, because this is telling Docker to let the container use those variables.  If running locally try one of the following (the second option is useful when your configurations are stored):
 
@@ -215,6 +215,3 @@ And the resulting output should look like the db section of your configuration, 
 
 Note: there is an option to have Launch Assist send the configuration directly to STDIN of your process.  &gt;todo: future docs&lt;
 
-Next Tutorial:
-
-* [Linking Pipelines](/docs/tutorial-pipeline/)
