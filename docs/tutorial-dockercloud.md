@@ -31,7 +31,7 @@ RUN apk add --no-cache --virtual .build-deps \
         bash curl tar gcc libc-dev libffi-dev \
         linux-headers make python3-dev
 # the actual reflex command
-RUN pip3 install rfx rfxcmd
+RUN pip3 install rfxcmd
 # cleanup unneeded dependencies
 RUN apk del .build-deps && rm -rf ~/.cache
 
@@ -39,6 +39,8 @@ ENTRYPOINT ["/usr/bin/launch"]
 {% endhighlight %}
 
 ## Setup the service in Reflex Engine
+
+{coming soon}
 
 ## Launch the container
 
