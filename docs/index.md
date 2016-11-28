@@ -53,6 +53,10 @@ Reflex gives you this capability through ABAC.  You can easily create policies t
 
 This last option is how Reflex works.  When somebody violates your cloud controller they will have your API keys, and you may not even know it.  But they do not have the additional attributes, so while your security posture is lowered, you do not have an immediate data breach.
 
+### What about Docker Secrets?
+
+The new module from Docker for managing secrets is a great step in the right direction, by finally giving people an option other than using insecure and unwieldy at scale environment variables.  Reflex Engine, however, extends beyond this concept by giving inheritance for managing many different services (or microservices), flexibility--the configurations can be delivered securely in a variety of manners for your application, and loose coupling, where the secrets can be used by any service, not just docker.
+
 ## Configuration Basics
 
 Reflex Configurations are very flexible and secure, designed to store both configurations, as well as secrets--to be delivered at run-time.  Reflex supports storing them as files within the container, inserting them as environment variables, or delivering them directly to stdin of the container process (most secure).
