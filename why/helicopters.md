@@ -2,7 +2,7 @@
 layout: why
 title:  Are we building Helicopters?
 author: Brandon Gillespie
-permalink: /why/helicopters
+permalink: /why/helicopters/
 ---
 
 # Imagine

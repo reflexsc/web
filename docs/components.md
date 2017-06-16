@@ -42,7 +42,7 @@ Furthermore, instances are still service oriented.  They are not servers.  An in
 
 # Secrets and Configurations
 
-As the world becomes more distributed with IaaS, PaaS and other "cloud" like software solutions, the security model of [Attribute Based Access Controls](/docs/abac/#live-state-management) becomes critical in maintaining a safe security posture.
+As the world becomes more distributed with IaaS, PaaS and other "cloud" like software solutions, the security model of [Attribute Based Access Controls](/docs/security/#live-state-management) becomes critical in maintaining a safe security posture.
 
 Conventional secret management systems are typically secured with a single "key" or password.  But if this key or password is stolen, then your secrets may be compromised.  The logical step is to lock down your secrets database somehow.  But by locking it down, now it is a challenge to use the valuable cloud services that can help you do your job better, so you can stop re-inventing the wheel.
 
