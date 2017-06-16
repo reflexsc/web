@@ -56,11 +56,11 @@ This last option is how Reflex works.  When somebody violates your cloud control
 
 ### What about Docker Secrets?
 
-The new module from Docker for managing secrets is a long needed step in the right direction, by finally giving people an option other than using insecure and unwieldy at scale environment variables.
+The new module from Docker for managing secrets is a long needed step in the right direction, by finally giving people an option other than using insecure and unwieldy at scale environment variables.  However, they are still statically managed, and only marginally better than environment variables.
 
 Reflex Engine extends beyond this concept by giving inheritance for managing many different services (or microservices), flexibility as the configurations can be delivered securely in a variety of manners for your application, and loose coupling, where the secrets can be used by any service, not just docker.
 
-Reflex can even leverage Docker Secrets for its own key management, taking over from that point forward.
+Reflex can even leverage Docker Secrets for its own key management, taking over from that point forward.  See the tutorial on using [Docker Secrets to help Reflex](/tut/dockersecrets).
 
 ## Configuration Basics
 
