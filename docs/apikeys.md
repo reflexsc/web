@@ -4,7 +4,7 @@ title:  Reflex APIKeys
 permalink: /docs/apikeys/
 ---
 
-Reflex Engine is an [Attribute Based Access Control (ABAC)](/docs/security/) solution, supporting policies which can use any number of attributes for authorization.  However, one of the more common supported attributes is an authentication token with API keys.
+Reflex Engine is an [Attribute Based Access Control (ABAC)](/why/security/) solution, supporting policies which can use any number of attributes for authorization.  However, one of the more common supported attributes is an authentication token with API keys.
 
 There are two data types used in this process:
 

@@ -6,7 +6,7 @@ permalink: /docs/
 
 ### Using
  &raquo; [Components](/docs/components/)<br/>
- &raquo; [Launch Assist](/docs/launch/)<br/>
+ &raquo; [Launch Assist](/docs/launch-assist/)<br/>
  &raquo; [Engine](/docs/reflex-engine/)<br/>
  &raquo; [Tools](/docs/reflex-tools/)<br/>
  &raquo; [Actions](/docs/reflex-actions/)<br/>
