@@ -1,8 +1,8 @@
 ---
-layout: docs
+layout: why
 title:  Are we building Helicopters?
 author: Brandon Gillespie
-permalink: /helicopters/
+permalink: /why/helicopters
 ---
 
 # Imagine
@@ -43,5 +43,6 @@ An innovation in the world of computing—containers—has made it possible to c
 
 To make this work well, we need to stop treating our containers like servers.  We need to think about services, not servers or containers.  The service should be addressable programatically, using a common API (not static YML files), the container itself should be polymorphic, so you can change how it behaves simply by how it is started and its environmental configuration is delivered into the container each time it starts--securely and reliably.
 
-## [Next: How it Works?](/docs/)
+-
 
+&raquo; [Next: Infrastructure as Code](/why/iac/)

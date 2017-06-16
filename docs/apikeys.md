@@ -104,3 +104,6 @@ After successfully getting Session Authorization, you should now have a session 
 
 If your session key is expired or otherwise not working, you should receive a 401 response.  You will need to re-establish a new session if this ocurrs.
 
+-
+
+&raquo; [Next: API](/docs/api/)

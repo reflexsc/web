@@ -10,9 +10,9 @@ permalink: /
     <div class="row">
       <div class="col-md-10 col-md-offset-2">
         <div class="block">
-          <h1 class="animated fadeInUp">SERVICE &#38; CONFIG MANAGEMENT<br>FOR CONTAINERS</h1>
+          <h1 class="animated fadeInUp">MODERN SERVICE, STATE &#38; CONFIG MANAGEMENT</h1>
           <p class="animated fadeInUp">
-Reflex is Open Source Software to manage the advancing world of containers, designed around the concept of services at an enterprise scale, continuous software delivery, and ABAC for strong granular security.
+Always-on, DevOps, ephemeral systems, containers, docker and at-scale systems drive a new and unique challenge to configuration management.  Reflex is the answer.
 </p>
         </div>
       </div>
@@ -26,8 +26,8 @@ Reflex is Open Source Software to manage the advancing world of containers, desi
       <div class="col-md-7 col-sm-12">
         <div class="block">
           <div class="section-title">
-            <h2>Why?</h2>
 <!--quote -->
+<h2>Why?</h2>
 </div>
 <p>Conventional configuration management systems focus on servers, and pivot around static assets. These systems struggle with continuous software delivery, safe management of secrets, and Infrastructure as Code.
 </p>
@@ -42,12 +42,7 @@ Reflex is Open Source Software to manage the advancing world of containers, desi
 
 <p>Reflex may not be for you if you are only interested in a handful of containers in a single environment (no tst/qa/stg/prd) and a few environment variables.  If you are wrestling with managing the sprawl of microservices, pipelines and coherency around both, or if the rabbit-breeding key-value secrets in vault/etcd are getting you down (or heaven forbid you are storing your secrets as plain environment variables), then Reflex may be of value.
 
-<p>Learn more:
-<ul>
-<li><a href="/helicopters/" class="btn btn-view-works">Are we building Helicopters?</a>
-<li><a href="https://surfingthe.cloud/factors-of-an-ephemeral-app/" class="btn btn-view-works">Factors of an Ephemeral App</a>
-</ul>
-
+<p>Reflex is Open Source Software, built by a community.
         </div>
       </div><!-- .col-md-7 close -->
       <div class="col-md-5 col-sm-12">
@@ -68,25 +63,48 @@ Reflex is Open Source Software to manage the advancing world of containers, desi
 .concepts a {
     color: white;
 }
-.concepts li {
-    margin-left: 2em;
+.concepts ul {
+  list-style: none;
+  padding: 0;
 }
-
+.concepts li {
+  overflow: visible;
+  padding-left: 1em;
+  position: relative;
+  line-height: 100%;
+  padding-bottom: 0.5em;
+}
+.concepts li:before {
+    content: "-";
+    left: 0;
+    position: absolute;
+}
+.con2 {
+    font-size: smaller;
+    font-style: italic;
+    color: #ddb;
+}
 </style>
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-6 concepts">
-      <h2 class=concepts><a href="/docs/concepts">CONCEPTS</a></h2>
+      <h2 class=concepts">UNDERSTANDING</h2>
       <ul>
-      <li><a href="/helicopters/">Are we building Helicopters?</a></li>
-      <li><a href="/docs/soa/">Service Oriented Architecture</a></li>
-      <li><a href="/docs/abac/">What is ABAC?</a></li>
-      <li><a href="/docs/loose-coupling/">Loose Coupling</a></li>
-      <li><a href="/docs/iac/">Infrastructure as Code</a></li>
+      <li><a href="/why/helicopters/">Are we building Helicopters?<br/>
+          <span class="con2">The difference</span></a></li>
+      <li><a href="/why/iac/">Infrastructure as Code<br/>
+          <span class="con2">Why this is important</span></a></li>
+      <li><a href="/why/state/">The State Challenge<br/>
+          <span class="con2">Not an easy problem</span></a></li>
+      <li><a href="/why/loose-coupling/">Loose Coupling<br/>
+          <span class="con2">Simplifies life</span></a></li>
+      <li><a href="/why/soa/">Service Oriented Architecture<br/>
+          <span class="con2">The future</span></a></li>
+      <li><a href="/why/abac/">Security in a Modern World<br/>
+          <span class="con2">ABAC</span></a></li>
+      <li><a href="https://surfingthe.cloud/factors-of-an-ephemeral-app/">Factors of an Ephemeral App<br/>
+          <span class="con2">Building an easy to manage app</span></a></li>
       </ul>
-      <h2 class=concepts><a href="/docs/">HOW IT WORKS</a></h2>
-      <h2 class=concepts><a href="/docs/install/#test-drive">TEST DRIVE</a></h2>
-      <!--<h2 class=concepts><a href="/contributors/">CONTRIBUTORS</a></h2>-->
     </div>
   </div>
 </div>

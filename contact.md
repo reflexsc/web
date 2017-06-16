@@ -1,5 +1,5 @@
 ---
-layout: hpage
+layout: docs
 title: Contact
 permalink: /contact/
 ---

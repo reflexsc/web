@@ -1,7 +1,7 @@
 ---
 layout: tutorial
 title: Reflex Services and Lauch Assist TUTORIAL
-permalink: /docs/tutorial-services/
+permalink: /tut/services/
 ---
 
 This Tutorial walks through the process of using the Reflex Engine demo setup with Launch Assist to run a container.
@@ -14,12 +14,11 @@ Assumptions:
 * You have docker installed locally as well (Mac or Linux).
 * You have tried the [Test Drive](/docs/install/#test-drive)
 
-The steps of this extended demo are:
+The steps of this tutorial are:
 
 1. [Setup Reflex Tools](/docs/reflex-tools/) locally
 2. [Setup a Reflex Engine](#setup-reflex-engine)
 3. [Build a Service](#build-the-service) to use Reflex
-4. [Build a Pipeline](#build-the-pipeline) (with external actions)
 
 # Setup Reflex Tools
 
@@ -214,4 +213,6 @@ And the resulting output should look like the db section of your configuration, 
 {% endhighlight %}
 
 Note: there is an option to have Launch Assist send the configuration directly to STDIN of your process.  &gt;todo: future docs&lt;
+
+-
 

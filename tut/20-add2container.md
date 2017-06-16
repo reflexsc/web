@@ -1,7 +1,7 @@
 ---
 layout: tutorial
 title: Add Reflex Tools to your Dockerfile TUTORIAL
-permalink: /docs/tutorial-add2container/
+permalink: /tut/add2container/
 ---
 
 This Tutorial walks through the process of adding Reflex Tools to your existing container.

@@ -8,13 +8,13 @@ Please Note!  Reflex is *beta* software.  We would love help from others testing
 
 Three options:
 
-* [**Easy Install**](#easy-install) &mdash; Install the local commands
+* [**Easy Install**](#easy-install) &mdash; Install the local commands (Reflex Tools)
 * [**Install Engine**](#install-engine) &mdash; Install the Engine
 * [**Test Drive**](#test-drive) &mdash; Easy test drive of all parts, using Docker.
 
-# Easy Install
+# Easy Install (Reflex Tools)
 
-This is supported in MacOS and Linux, with Python version 3.
+Reflex Tools are supported in MacOS and Linux, with Python version 3.  Some Reflex Tool functionality also works in Python 2, but it is not a supported feature set.
 
 Use PIP to load the reflex commands:
 
@@ -100,8 +100,7 @@ When you are done, don't forget to cleanup:
 docker-compose down
 {% endhighlight %}
 
-Next steps, you can investigate our Tutorials:
+-
 
-* [Reflex Services and Launch Assist](/docs/tutorial-services/)
-* [Linking Pipelines](/docs/tutorial-pipeline/)
+&raquo; [Next: Reference -> Developing](/docs/developing/)
 

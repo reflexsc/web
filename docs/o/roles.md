@@ -1,14 +1,14 @@
 ---
 layout: docs
-title: Roles
+title: Components and Parts of Reflex
 permalink: /docs/roles/
 ---
 
-Three modules facilitate the roles of Reflex:
+There are three fundamental parts to Reflex:
 
-* Launch Assist
-* Reflex Engine
-* Reflex Tools
+* [Launch Assist](#launch-assist) - used to launch / start a service
+* [Reflex Engine](#reflex-engine) - where all of the live state and configurations are stored
+* [Reflex Tools](#reflex-tools) - The CLI tools used to manage and drive the Engine
 
 # Launch Assist
 
@@ -64,11 +64,6 @@ Reflex Engine is a database service providing the [Reflex API](/docs/api/). Most
 
 Reflex Tools are the combination of [Reflex CLI](/docs/cli/) commands available to interface with the Reflex Engine.
 
+-
 
-# Roadmap
-
-Things in the labs but not yet released:
-
-<li> <b>Reflex Hooks</b> -- callbacks based on changes and events to objects in Reflex Engine, using expressions similar to ABAC policies
-<li> <b>Reflex Check</b> -- a container that can run within your infrastructure and do deep level version checks on sets of services (with full regex output)
-<li> <b>Reflex UI</b> -- a front-end user interface
+&raquo; [Next: Launch Assist]
