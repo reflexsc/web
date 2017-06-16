@@ -40,7 +40,7 @@ Behind services are a set of Instances.  These may be defined statically, or dyn
 
 Furthermore, instances are still service oriented.  They are not servers.  An instance is a combination of an address *and* a port.  So you can have many instances on a single server, for instance, if you have many different services running.
 
-# Secrets and Configurations
+# Configurations and Secrets
 
 As the world becomes more distributed with IaaS, PaaS and other "cloud" like software solutions, the security model of [Attribute Based Access Controls](/docs/abac/#live-state-management) becomes critical in maintaining a safe security posture.
 
