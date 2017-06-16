@@ -147,7 +147,7 @@ The central pivot point referencing other objects.
 |region|string|(optional) region string, to help separate regions (if needed)
 |target|string|(optional) reference to build object
 |tenant|string|(optional) string for tenant (in a multi-tenant environment)
-|version-url|string|(optional) string used by [Reflex Version-Check module](/docs/version-check)
+|version-url|string|(optional) string used by Reflex Version-Check module
 |pipeline|string|link to the name of the pipeline
 
 Example:

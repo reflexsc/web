@@ -70,7 +70,7 @@ reflex setup demo
 
 ## *Step-1: Create a docker hello-world*
 
-For simplicity we are re-using the docker engine container.  Reference [Adding Reflex Tools to your Dockerfile](/docs/tutorial-add2container) for how to do this with your own container.
+For simplicity we are re-using the docker engine container.  Reference [Adding Reflex Tools to your Dockerfile](/tut/add2container) for how to do this with your own container.
 
 Create a new container named `bct-tst` -- this will use the demo service of the same name.  For this example we will extend the reflexsc/engine container (because it already has reflex tools as well as the engine).  Create a new Dockerfile:
 

@@ -9,7 +9,7 @@ permalink: /docs/
  &nbsp;&nbsp;&nbsp;&rsaquo; _[Services](/docs/components#service-management)_<br/>
  &nbsp;&nbsp;&nbsp;&rsaquo; _[Configurations and Secrets](/docs/components#Configurations and Secrets)_<br/>
  &nbsp;&nbsp;&nbsp;&rsaquo; _[Policies](/docs/components#policies)_<br/>
- &raquo; [Launch Assist](/docs/launch/)<br/>
+ &raquo; [Launch Assist](/docs/launch-assist/)<br/>
  &raquo; [Engine](/docs/reflex-engine/)<br/>
  &raquo; [Tools](/docs/reflex-tools/)<br/>
  &raquo; [Actions](/docs/reflex-actions/)<br/>
@@ -25,4 +25,7 @@ permalink: /docs/
  &raquo; [API](/docs/api/)<br/>
 ### [Roadmap](/docs/roadmap/)
 ### [Tutorials](/tut/)
+<<<<<<< HEAD
 
+=======
+>>>>>>> e84850648e79a9e37114df44450df834a81515a5

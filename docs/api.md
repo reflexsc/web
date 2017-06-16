@@ -7,7 +7,7 @@ permalink: /docs/api/
 The API follows similar patterns:
 
 * [Response Messages](#response-messages) -- API responses send an object or a response message
-* [Authorizing](#authorizing) -- an [API Key](/docs/apikeys/) is one of the attributes for [ABAC](/docs/abac/).
+* [Authorizing](#authorizing) -- an [API Key](/docs/apikeys/) is one of the attributes for [ABAC](/why/security/).
 * [Manipulating Objects](#manipulating-objects) -- using REST/CRUD methods
 * [Extended Object Actions](#extended-object-actions) -- additional actions on objects beyond CRUD
 
