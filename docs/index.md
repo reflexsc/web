@@ -7,7 +7,7 @@ permalink: /docs/
 ### Using
  &raquo; [Components](/docs/components/)<br/>
  &nbsp;&nbsp;&nbsp;&rsaquo; _[Services](/docs/components#service-management)_<br/>
- &nbsp;&nbsp;&nbsp;&rsaquo; _[Configurations and Secrets](/docs/components#Configurations and Secrets)_<br/>
+ &nbsp;&nbsp;&nbsp;&rsaquo; _[Configurations and Secrets](/docs/components#configurations-and-secrets)_<br/>
  &nbsp;&nbsp;&nbsp;&rsaquo; _[Policies](/docs/components#policies)_<br/>
  &raquo; [Launch Assist](/docs/launch-assist/)<br/>
  &raquo; [Engine](/docs/reflex-engine/)<br/>
