@@ -23,7 +23,7 @@ These variables include:
 To setup docker and use secrets in this manner, start by configuring the secret:
 
 {% highlight bash %}
-echo reflex.apikey | docker secret create myservice-p1-apikey -
+echo keyname.keydata | docker secret create myservice-p1-apikey -
 echo https://reflex-location.example.com/api/v1 | docker secret create reflex-url -
 {% endhighlight %}
 

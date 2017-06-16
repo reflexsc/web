@@ -8,6 +8,7 @@ Sometimes it is just easier to dive in and get your feet wet.
 
 * [Reflex Services and Launch Assist](/tut/services/) - 
 * [Adding Reflex Tools to a container](/tut/add2container/) -
+* [Using Docker Secrets](/tut/dockersecrets/) -
 
 ### Todo
 
