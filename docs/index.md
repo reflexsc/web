@@ -25,7 +25,3 @@ permalink: /docs/
  &raquo; [API](/docs/api/)<br/>
 ### [Roadmap](/docs/roadmap/)
 ### [Tutorials](/tut/)
-<<<<<<< HEAD
-
-=======
->>>>>>> e84850648e79a9e37114df44450df834a81515a5
