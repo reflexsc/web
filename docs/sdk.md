@@ -7,8 +7,8 @@ permalink: /docs/sdk/
 Using Reflex in-code is easy with Python, using the rfx.client.Session() class:
 
 {% highlight python %}
-    import rfx
-    rcs = rfx.client.Session()
+    import rfx.client
+    rcs = rfx.client.Session().cfg_load()
     cfg = rcs.get("config", "tardis")
 {% endhighlight %}
 
