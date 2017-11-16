@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Reflex SDK
-permalink: /docs/reflex-sdk/
+permalink: /docs/sdk/
 ---
 
 Using Reflex in-code is easy with Python, using the rfx.client.Session() class:
@@ -29,5 +29,3 @@ Methods:
 * `.delete(object_type, object_name)`
 
 -
-
-&raquo; [Next: Reflex Actions](/docs/reflex-actions/)

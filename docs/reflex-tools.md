@@ -156,6 +156,10 @@ Or if you are in bash, you can simiplify this by making 'reflex' a function that
     reflex engine service list
 {% endhighlight %}
 
+# Using the SDK
+
+There is also a software level you can easily use, in Python, with the [Reflex SDK](/sdk/).
+
 -
 
 &raquo; [Next: Reflex Actions](/docs/reflex-actions/)
