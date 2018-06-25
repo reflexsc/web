@@ -106,7 +106,8 @@ Used with the [Monitor module](/docs/reflex-monitor).
 |----|-|-
 |name|string|base path to where configurations are stored
 |type|string|"http" is the only supported type
-|expect|object|Sub-object including response-code (with int value)
+|expect|object|Sub-object including:
+* response-code (with int value)
 |query|object|see example
 |retry|int|how long to wait before trying on a failure
 |timeout|int|how long to wait before giving up on a response
@@ -117,7 +118,11 @@ Example:
     {
         "name": "bct-heartbeat",
         "expect": {
-            "response-code": 204
+            "response-code": 204,
+            "json": {"status": {"version": "17"}},
+            "content": "version: 17",
+            "regex": "version: [0-9]+",
+            "headers": {"this-header": "that-result"}
         },
         "query": {
             "headers": {

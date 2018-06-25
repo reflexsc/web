@@ -18,29 +18,35 @@ The Database used on the backend of Reflex Engine is MariaDB (but may work with 
 
 ## Reflex Engine Configuration
 
-The configuration is stored as a JSON object, in the environment variable `REFLEX_ENGINE_CONFIG`.  This can be base64 encoded for easier storing.  The options available are as follows (Note: the #comments are not accepted as part of the config)
+The configuration is stored as a JSON object, in the docker secret or environment variable `REFLEX_ENGINE_CONFIG`.  This can be base64 encoded for easier storing.  The options shown are also the defaults--you can leave out any part of this configuration to receive the default (Note: the #comments are not accepted as part of the config)
 
-{% highlight json %}
+```
 {
     "server": {
-        "route_base": "/api/v1",     # default base url path
+        "route_base": "/api/v1",     # default base url path. add to this for entropy
         "port": 54000,               # default port
-        "host": "0.0.0.0"            # default bind all
+        "host": "0.0.0.0"            # default bind all internal
     },
-    "heartbeat": 10,                 # how often to verify things are good?
+    "heartbeat": 10,                 # how often to drive internal checks?  this is an okay default
     "cache": {                       # time in seconds for cache management
-        "housekeeper": 60,           # default housekeeper interval
-        "policies": 300,             # default cache age
-        "sessions": 300,             # default cache age
-        "groups": 300                # default cache age
+        "housekeeper": 60,           # default housekeeper interval - how often reflex checks cache and other things
+        "policies": 300,             # default cache age for policies
+        "sessions": 300,             # default cache age for sessions
+        "groups": 300                # default cache age for groups
     },
     "db": {                          # anything accepted to mysql.connector.connect
         "database": "reflex_engine", # default
         "user": "root",              # default
         "password": "word"           # user password for database
+    },
+    "crypto": {
+        "001": {                     # each key is just enumerated.  Add more as you need
+            "key": "",               # create: dd if=/dev/urandom bs=64 count=1 | base64 -w0
+            "default": true          # only one should be true.  All others are for decoding old data
+        }
     }
 }
-{% endhighlight %}
+```
 
 To make this base64, pipe it through the `base64` command:
 
@@ -52,59 +58,7 @@ echo $REFLEX_ENGINE_CONFIG
 ewoic2VydmVyIjogewoicm91dGVfYmFzZSI6ICIvYXBpL3YxIiwKInBvcnQiOiA1NDAwMCwKImhvc3QiOiAiMC4wLjAuMCIKfSwKImhlYXJ0YmVhdCI6IDEwLAoiY2FjaGUiOiB7CiJob3VzZWtlZXBlciI6IDYwLAoicG9saWNpZXMiOiAzMDAsCiJzZXNzaW9ucyI6IDMwMCwKImdyb3VwcyI6IDMwMAp9LAoiZGIiOiB7CiJkYXRhYmFzZSI6ICJyZWZsZXhfZW5naW5lIiwKInVzZXIiOiAicm9vdCIsCiJwYXNzd29yZCI6ICJ3b3JkIgp9Cn0K
 {% endhighlight %}
 
-## Reflex Engine in Container
-
-[Setup the configuration](#reflex-engine-configuration) for the container, and then run your container:
-
-{% highlight bash %}
-docker run --rm -t \
-	 -e REFLEX_ENGINE_CONFIG=$REFLEX_ENGINE_CONFIG \
-	 reflexsc/engine reflex-engine "$@"
-{% endhighlight %}
-
-Optionally, you may use docker-compose with the mariadb container. You will need to research the mariadb container and learn how to initialize the user and import the volume so it may be reused.
-
-{% highlight yml %}
-version: '2'
-services:
-  engine:
-    image: reflexsc/engine
-    ports:
-      - "54000:54000"
-    links:
-      - db
-    environment:
-      - REFLEX_ENGINE_CONFIG=ewoic2VydmVyIjogewoicm91dGVfYmFzZSI6ICIvYXBpL3YxIiwKInBvcnQiOiA1NDAwMCwKImhvc3QiOiAiMC4wLjAuMCIKfSwKImhlYXJ0YmVhdCI6IDEwLAoiY2FjaGUiOiB7CiJob3VzZWtlZXBlciI6IDYwLAoicG9saWNpZXMiOiAzMDAsCiJzZXNzaW9ucyI6IDMwMCwKImdyb3VwcyI6IDMwMAp9LAoiZGIiOiB7CiJkYXRhYmFzZSI6ICJyZWZsZXhfZW5naW5lIiwKInVzZXIiOiAicm9vdCIsCiJwYXNzd29yZCI6ICJ3b3JkIgp9Cn0K
-      - PYTHONUNBUFFERED=true
-  db:
-    image: mariadb
-    environment:
-      - MYSQL_DATABASE=reflex_engine
-{% endhighlight %}
-
-## Reflex Engine in SystemD
-
-Install the code somewhere (such as `/app/reflex`) and setup SystemD like:
-
-{% highlight systemd %}
-[Unit]
-Description=Reflex Engine
-After=named-chroot.service
-
-[Service]
-User=reflex
-Group=reflex
-# loathe
-EnvironmentFile=/app/reflex/.env
-ExecStart=/app/reflex/bin/reflex-engine
-WorkingDirectory=/app/reflex
-Restart=always
-StandardOutput=syslog
-StandardError=syslog
-
-[Install]
-WantedBy=multi-user.target
-{% endhighlight %}
+* See [Install Reflex Engine](/docs/install/#install-reflex-engine) for more information on installing Reflex (inside or outside of a container)
 
 -
 
