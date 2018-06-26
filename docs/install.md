@@ -94,13 +94,14 @@ docker push your-repo/reflex-engine:prd
 ```
 2. [Configure Reflex Engine](/docs/reflex-engine/)
 3. Deploy in Docker Swarm:
-   * Deploy the configuration secret:
+   * Deploy the configuration secret with either one of:
 ```
-docker secret create REFLEX_ENGINE_CONFIG < REFLEX_ENGINE_CONFIG.json
+docker secret create reflex-cfg-v0 - < REFLEX_ENGINE_CONFIG.json
+base64 -w0 REFLEX_ENGINE_CONFIG.json | docker secret create reflex-cfg-v0 -
 ```
    * Adjust and deploy from the sample [docker-compose.yml](https://github.com/reflexsc/reflex/blob/master/doc/swarm/docker-compose.yml)
 ```
-docker stack deploy -c docker-compose.yml
+docker stack deploy -c docker-compose.yml reflex
 ```
 
 ## Reflex Engine - Standalone:

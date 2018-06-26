@@ -41,7 +41,7 @@ The configuration is stored as a JSON object, in the docker secret or environmen
     },
     "crypto": {
         "001": {                     # each key is just enumerated.  Add more as you need
-            "key": "",               # create: dd if=/dev/urandom bs=64 count=1 | base64 -w0
+            "key": "",               # create: dd if=/dev/urandom bs=32 count=1 | base64 -w0
             "default": true          # only one should be true.  All others are for decoding old data
         }
     }
