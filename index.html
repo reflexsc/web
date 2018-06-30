@@ -13,8 +13,8 @@ permalink: /
           <h1 class="animated fadeInUp">MODERN SERVICE, STATE &#38; CONFIG MANAGEMENT</h1>
           <p class="animated fadeInUp">
 Always-on, DevOps, ephemeral systems, containers, docker and at-scale systems drive a new and unique challenge to configuration management.  Reflex is the answer.
-<p>
-Reflex is a firewall for your configurations, supporting ABAC, and able to meet regulatory compliance such as PCI.  It helps if you run services for SaaS and multi-tenancy, as well as single scale apps and Functions as a Service.
+<p class="animated fadeInUp">
+Reflex is a <b><i>firewall for your configurations</i></b>, supporting ABAC, and able to meet regulatory compliance such as PCI.  It helps if you run services for SaaS and multi-tenancy, as well as single scale apps and Functions as a Service.
 </p>
         </div>
       </div>
@@ -31,20 +31,26 @@ Reflex is a firewall for your configurations, supporting ABAC, and able to meet 
 <!--quote -->
 <h2>Why?</h2>
 </div>
-<p>Conventional configuration management systems focus on servers, and pivot around static assets. These systems struggle with continuous software delivery, safe management of secrets, and Infrastructure as Code.
+<p>Conventional configuration management systems focus on servers, and pivot around static assets; and conventional secrets system (Vault, Kubernetes, Docker) are simple key/value setups with basic RBAC access control. The former systems struggle with continuous software delivery, and all struggle with safe management of secrets, and Infrastructure as Code.
 </p>
 
-<p>Reflex centers itself around the concept of services, live configuration states delivered at run-time and ephemeral deployments in continuous delivery pipelines.
-</p>
-
-<p>Reflex is not designed to be a software delivery system, nor is it designed to be a software build system. It is instead meant to fill in the gaps of the variety of existing systems, fixing many of the challenges faced as the industry evolves and improves.
+<p>Reflex centers itself around the concept of services instead of servers, dynamic configuration with inheritance for the broad management needs that still exist in doing microservices, and live configuration states delivered at run-time in an ephemeral and continuously delivered pipelines, not just one service (so across a DEV, Test, Stage and Prod pipeline).
 </p>
 
 <p>It is designed with modern ABAC security concepts to address secrets in the emerging "Internet of Things" world, and is meant to support secure run-time delivery of services, enhancing the solutions you already may have in place today to improve your options beyond what is possible with your current tools.
 
-<p>Reflex may not be for you if you are only interested in a handful of containers in a single environment (no tst/qa/stg/prd) and a few environment variables.  If you are wrestling with managing the sprawl of microservices, pipelines and coherency around both, or if the rabbit-breeding key-value secrets in vault/etcd are getting you down (or heaven forbid you are storing your secrets as plain environment variables), then Reflex may be of value.
+<p>Reflex may not be for you if you are only interested in a handful of containers in a single environment (no pipelines for software delivery), or if you are running stock "IT" containers. If any of this is true for you, Reflex may be of value:
+<ul>
+<li>You are wrestling with managing the sprawl of microservices
+<li>You are wrestling with figuring out how to connect pipelines to production, and coherency around delivery of secrets and configurations across the pipelines
+<li>The rabbit-breeding key-value secrets in vault/etcd are getting you down
+<li>You are storing your secrets as plain environment variables (yikes)
+<li>You want to meet compliance/regulatory requirements which typically struggle in a DevOps/CI/CD World (i.e. PCI Compliance)
+<li>You want to more easily manage secrets, securely and robustly, in your FaaS space.
+</ul>
 
-<p>Reflex is Open Source Software, built by a community.
+<p>Reflex is Open Source Software, built by a community, with several sites in full production use.
+
         </div>
       </div><!-- .col-md-7 close -->
       <div class="col-md-5 col-sm-12">
